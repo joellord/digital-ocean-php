@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: php
+  labels:
+    tier: backend
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: php
+      tier: backend
+  template: 
+    metadata:
+      labels:
+        app: php
+        tier: backend
+    spec:
+      volume
