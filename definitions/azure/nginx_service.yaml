@@ -12,4 +12,4 @@ spec:
   - protocol: TCP
     port: 80
   externalIPs:
-  - 165.22.236.119
+  - 52.167.132.254
