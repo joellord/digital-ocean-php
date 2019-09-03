@@ -36,4 +36,4 @@ spec:
         - wget
         - "-O"
         - "/code/index.php"
-        - https://raw.githubusercontent.com/joellord/digital-ocean-php/master/app/index.php
+        - https://raw.githubusercontent.com/joellord/multiple-k8s/master/app/index.php
