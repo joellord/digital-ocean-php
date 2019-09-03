@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>K8s on Digital Ocean</title>
+<title>K8s</title>
 </head>
 
 <body>
@@ -11,3 +11,4 @@
 <h2><?echo "Short with echo"?></h2>
 </body>
 </html>
+cd 

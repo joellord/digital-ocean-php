@@ -20,12 +20,32 @@ spec:
       - name: code
         persistentVolumeClaim:
           claimName: code
+      - name: tmp
+        persistentVolumeClaim:
+          claimName: tmp
+      - name: config
+        configMap:
+          name: php-config
       containers:
       - name: php
         image: php:7-fpm
         volumeMounts:
         - name: code
           mountPath: /code
+        - name: tmp
+          mountPath: /tmp
+        - name: config
+          mountPath: /usr/local/etc/php-fpm.conf
+          subPath: php-fpm.conf
+        - name: config
+          mountPath: /usr/local/etc/php-fpm.d/www.conf
+          subPath: www.conf
+        - name: config
+          mountPath: /usr/local/etc/php-fpm.d/docker.conf
+          subPath: docker.conf
+        - name: config
+          mountPath: /usr/local/etc/php-fpm.d/zz-docker.conf
+          subPath: zz-docker.conf
       initContainers:
       - name: install
         image: busybox

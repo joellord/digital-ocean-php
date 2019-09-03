@@ -23,16 +23,19 @@ spec:
       - name: config
         configMap:
           name: nginx-config
-          items:
-          - key: config
-            path: site.conf
+      - name: tmp
+        persistentVolumeClaim:
+          claimName: tmp
       containers:
       - name: nginx
-        image: registry.access.redhat.com/rhscl/nginx-112-rhel7
+        image: nginx:1.17.3-alpine
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         volumeMounts:
         - name: code
           mountPath: /code
         - name: config
-          mountPath: /etc/nginx/conf.d
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+        - name: tmp
+          mountPath: /tmp

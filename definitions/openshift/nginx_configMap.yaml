@@ -5,24 +5,43 @@ metadata:
   labels:
     tier: backend
 data:
-  config : |
-    server {
-      index index.php index.html;
-      error_log  /var/log/nginx/error.log;
-      access_log /var/log/nginx/access.log;
-      root /code;
+  nginx.conf : |
+    worker_processes auto;
 
-      location / {
-          try_files $uri $uri/ /index.php?$query_string;
-      }
+    pid /tmp/nginx.pid;
 
-      location ~ \.php$ {
-          try_files $uri =404;
-          fastcgi_split_path_info ^(.+\.php)(/.+)$;
-          fastcgi_pass php:9000;
-          fastcgi_index index.php;
-          include fastcgi_params;
-          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-          fastcgi_param PATH_INFO $fastcgi_path_info;
+    events {
+      worker_connections 1024;
+    }
+
+    http {
+      client_body_temp_path /tmp/client_temp;
+      proxy_temp_path       /tmp/proxy_temp_path;
+      fastcgi_temp_path     /tmp/fastcgi_temp;
+      uwsgi_temp_path       /tmp/uwsgi_temp;
+      scgi_temp_path        /tmp/scgi_temp;
+
+      server {
+        listen 8080;
+        server_name _;
+
+        index index.php index.html;
+        error_log  /tmp/error.log;
+        access_log /tmp/access.log;
+        root /code;
+
+        location / {
+            try_files $uri $uri/ /index.php?$query_string;
         }
+
+        location ~ \.php$ {
+            try_files $uri =404;
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
+            fastcgi_pass php:9000;
+            fastcgi_index index.php;
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param PATH_INFO $fastcgi_path_info;
+          }
+      }
     }
