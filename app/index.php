@@ -11,4 +11,3 @@
 <h2><?echo "Short with echo"?></h2>
 </body>
 </html>
-cd 

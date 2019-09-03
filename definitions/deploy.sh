@@ -7,6 +7,8 @@ else
     echo "Using default --openshift"
 fi
 
+cd $platform
+
 ## Delete everything
 kubectl delete deployment php
 kubectl delete deployment nginx
