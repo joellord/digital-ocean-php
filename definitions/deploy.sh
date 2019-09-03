@@ -42,5 +42,10 @@ fi
 kubectl apply -f php_deployment.yaml
 kubectl apply -f nginx_deployment.yaml
 
+## Routes for azure
+if [ "$platform" = "azure" ]; then
+    kubectl apply -f azure_route.yaml
+fi
+
 ## Check everything
 kubectl get services -o wide
